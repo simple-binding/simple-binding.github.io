@@ -36,6 +36,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         display: block;
       }
+      * {
+        font-family: 'Avenir', 'Avenir Next for Best Buy', 'Open Sans', 'Roboto', 'SFUI', sans-serif;
+      }
 
       app-drawer-layout:not([narrow]) [drawer-toggle] {
         display: none;
@@ -80,6 +83,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin-bottom: 120px;
         background: white;
       }
+      .menu-heading {
+        margin-left: 24px;
+      }
     </style>
 
     <app-location route="{{route}}"></app-location>
@@ -90,25 +96,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <app-drawer id="drawer" slot="drawer">
         <app-toolbar>Brand Store Builder</app-toolbar>
         <div>
-          <p>Slideshow</p>
+          <p class="menu-heading">Slideshow</p>
           <div class="card">
+            <p>Slide 1</p>
             <paper-input label="Heading"></paper-input>
             <paper-input label="Sub-Heading"></paper-input>
             <paper-input label="Primary CTA"></paper-input>
             <paper-input label="Secondary CTA"></paper-input>
             <paper-input label="Image URL"></paper-input>
-            <p>Add New Slide</p>
+            <button>Add Slide 2</button>
           </div>
-          <p>Featured</p>
+          <p class="menu-heading">Featured</p>
           <div class="card">
+            <p>Tile 1</p>
             <paper-input label="Heading"></paper-input>
             <paper-input label="Sub-Heading"></paper-input>
             <paper-input label="Primary CTA"></paper-input>
             <paper-input label="Secondary CTA"></paper-input>
             <paper-input label="Image URL"></paper-input>
             <paper-input label="Badge (44 x 44px)"></paper-input>
-            <p>Add New Tile</p>
+            <button>Add Tile 2</button>
           </div>
+          <button>Submit</button>
         </div>
         <!-- <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation"> -->
           <!-- <a name="view1" href="view1">View One</a>
