@@ -22,16 +22,50 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         padding: 10px;
       }
 
-      #output {
+      paper-slide img {
         width: 100%;
-        height: auto;
-        background-color: #000;
+        padding-top: 250px;
+      }
+      .paper-slide-blue {
+        background: #2196F3
+      }
+      .paper-slide-red {
+        background: #F44336
+      }
+      .paper-slide-brown {
+        background: #795548
+      }
+      .paper-slide-green {
+        background: #009688
+      }
+      .paper-slide-space {
+        background: #121212;
+      }
+      .demo-style {
+        text-align: center;
+        vertical-align: middle;
+        line-height: 600px;
+        color: #fff;
+        font-size: 64px !important;
+        font-weight: bolder
+      }
+      .featured-tiles {
+        text-align: center;
+      }
+      .card {
+        text-align: center;
       }
     </style>
 
     <div class="card">
-      <paper-input id="nameInput" label="username" on-input="updateVal" value="{{name}}"></paper-input>
-      <div id="output">{{name}}</div>
+      <l2t-paper-slider total-slides="4" auto-progress>
+          <paper-slide class="paper-slide-blue demo-style">{{name}}</paper-slide>
+          <paper-slide class="paper-slide-space demo-style"><img src="images/space.png"></paper-slide>
+          <paper-slide class="paper-slide-brown demo-style">Slide 3 Heading</paper-slide>
+          <paper-slide class="paper-slide-green demo-style">Slide 4 Heading</paper-slide>
+        </l2t-paper-slider>
+        <img class="featured-tiles" src="images/featured.png">
+        <paper-input id="nameInput" label="Heading" on-input="updateVal" value="{{name}}"></paper-input>
     </div>
     <firebase-app
         id="app"

@@ -20,6 +20,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/l2t-paper-slider/l2t-paper-slider.html">
+<link rel="import" href="shared-styles.html">
 <link rel="import" href="my-icons.html">
 
 <link rel="lazy-import" href="my-view1.html">
@@ -31,10 +33,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <template>
     <style>
       :host {
-        --app-primary-color: #4285f4;
+        --app-primary-color: #003b64;
         --app-secondary-color: black;
 
         display: block;
+      }
+      * {
+        font-family: 'Avenir', 'Avenir Next for Best Buy', 'Open Sans', 'Roboto', 'SFUI', sans-serif;
       }
 
       app-drawer-layout:not([narrow]) [drawer-toggle] {
@@ -66,6 +71,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         color: black;
         font-weight: bold;
       }
+
+      .card {
+        margin: 24px;
+        padding: 16px;
+        color: #757575;
+        border-radius: 5px;
+        background-color: #fff;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+      }
+      app-drawer {
+        overflow-y: auto;
+        margin-bottom: 120px;
+        background: white;
+      }
+      .menu-heading {
+        margin-left: 24px;
+      }
     </style>
 
     <app-location route="{{route}}"></app-location>
@@ -78,12 +100,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <app-drawer-layout fullbleed>
       <!-- Drawer content -->
       <app-drawer id="drawer" slot="drawer">
-        <app-toolbar>Menu</app-toolbar>
-        <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-          <a name="view1" href="view1">View One</a>
+        <app-toolbar>Brand Store Builder</app-toolbar>
+        <div>
+          <p class="menu-heading">Slideshow</p>
+          <div class="card">
+            <p>Slide 1</p>
+            <paper-input label="Heading"></paper-input>
+            <paper-input label="Sub-Heading"></paper-input>
+            <paper-input label="Primary CTA"></paper-input>
+            <paper-input label="Secondary CTA"></paper-input>
+            <paper-input label="Image URL"></paper-input>
+            <button>Add Slide 2</button>
+          </div>
+          <p class="menu-heading">Featured</p>
+          <div class="card">
+            <p>Tile 1</p>
+            <paper-input label="Heading"></paper-input>
+            <paper-input label="Sub-Heading"></paper-input>
+            <paper-input label="Primary CTA"></paper-input>
+            <paper-input label="Secondary CTA"></paper-input>
+            <paper-input label="Image URL"></paper-input>
+            <paper-input label="Badge (44 x 44px)"></paper-input>
+            <paper-input label="Badge Link URL"></paper-input>
+            <button>Add Tile 2</button>
+          </div>
+          <button>Submit</button>
+        </div>
+        <!-- <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation"> -->
+          <!-- <a name="view1" href="view1">View One</a>
           <a name="view2" href="view2">View Two</a>
-          <a name="view3" href="view3">View Three</a>
-        </iron-selector>
+          <a name="view3" href="view3">View Three</a> -->
+        <!-- </iron-selector> -->
       </app-drawer>
 
       <!-- Main content -->
@@ -92,7 +139,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <app-header slot="header" condenses reveals effects="waterfall">
           <app-toolbar>
             <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
-            <div main-title>My App</div>
+            <div main-title>[Vendor Name Here]</div>
           </app-toolbar>
         </app-header>
 
