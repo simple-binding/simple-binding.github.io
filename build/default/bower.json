@@ -16,6 +16,7 @@
     "paper-input": "PolymerElements/paper-input#^2.0.1",
     "polymer": "Polymer/polymer#^2.0.0-rc.3",
     "polymerfire": "firebase/polymerfire#^2.1.0",
+    "l2t-paper-slider": "Link2Twenty/l2t-paper-slider#1.4.1",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0-rc.7"
   },
   "resolutions": {
