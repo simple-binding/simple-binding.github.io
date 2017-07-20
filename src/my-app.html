@@ -23,10 +23,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/l2t-paper-slider/l2t-paper-slider.html">
 <link rel="import" href="shared-styles.html">
 <link rel="import" href="my-icons.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-app.html">
 
-<link rel="lazy-import" href="my-view1.html">
-<link rel="lazy-import" href="my-view2.html">
-<link rel="lazy-import" href="my-view3.html">
 <link rel="lazy-import" href="my-view404.html">
 
 <dom-module id="my-app">
@@ -37,6 +36,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         --app-secondary-color: black;
 
         display: block;
+        padding: 10px;
       }
       * {
         font-family: 'Avenir', 'Avenir Next for Best Buy', 'Open Sans', 'Roboto', 'SFUI', sans-serif;
@@ -53,6 +53,40 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       app-header paper-icon-button {
         --paper-icon-button-ink-color: white;
+      }
+
+      paper-slide img {
+        width: 100%;
+        padding-top: 250px;
+      }
+      .paper-slide-blue {
+        background: #2196F3
+      }
+      .paper-slide-red {
+        background: #F44336
+      }
+      .paper-slide-brown {
+        background: #795548
+      }
+      .paper-slide-green {
+        background: #009688
+      }
+      .paper-slide-space {
+        background: #121212;
+      }
+      .demo-style {
+        text-align: center;
+        vertical-align: middle;
+        line-height: 600px;
+        color: #fff;
+        font-size: 64px !important;
+        font-weight: bolder
+      }
+      .featured-tiles {
+        text-align: center;
+      }
+      .card {
+        text-align: center;
       }
 
       .drawer-list {
@@ -105,6 +139,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <p class="menu-heading">Slideshow</p>
           <div class="card">
             <p>Slide 1</p>
+            <paper-input id="nameInput" label="Heading" on-input="updateVal" value="{{name}}"></paper-input>
             <paper-input label="Heading"></paper-input>
             <paper-input label="Sub-Heading"></paper-input>
             <paper-input label="Primary CTA"></paper-input>
@@ -142,19 +177,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <div main-title>[Vendor Name Here]</div>
           </app-toolbar>
         </app-header>
-
-        <iron-pages
-            selected="[[page]]"
-            attr-for-selected="name"
-            fallback-selection="view404"
-            role="main">
-          <my-view1 name="view1"></my-view1>
-          <my-view2 name="view2"></my-view2>
-          <my-view3 name="view3"></my-view3>
-          <my-view404 name="view404"></my-view404>
-        </iron-pages>
+        <div id="view-holder">
+          <div class="card">
+            <l2t-paper-slider total-slides="4" auto-progress>
+                <paper-slide class="paper-slide-blue demo-style">{{name}}</paper-slide>
+                <paper-slide class="paper-slide-space demo-style"><img src="images/space.png"></paper-slide>
+                <paper-slide class="paper-slide-brown demo-style">Slide 3 Heading</paper-slide>
+                <paper-slide class="paper-slide-green demo-style">Slide 4 Heading</paper-slide>
+              </l2t-paper-slider>
+              <img class="featured-tiles" src="images/featured.png">
+          </div>
+        </div>
       </app-header-layout>
     </app-drawer-layout>
+    <firebase-app
+        id="app"
+        api-key="{{config.apiKey}}"
+        auth-domain="{{config.authDomain}}"
+        database-url="{{config.databaseURL}}"
+        storage-bucket="{{config.storageBucket}}"
+        messaging-sender-id="{{config.messagingSenderId}}"></firebase-app>
   </template>
 
   <script>
@@ -172,6 +214,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           rootPattern: String,
           routeData: Object,
           subroute: String,
+          name: {
+            type: String,
+            reflectToAttribute: false,
+            notify: true
+          },
+          config: {
+              type: Object,
+              notify: true,
+              value: {
+                  "apiKey": "AIzaSyALysaAo-tdxgXQkWlN4WXmIUzNOK_15Hs",
+                  "authDomain": "bs-tool.firebaseapp.com",
+                  "databaseURL": "https://bs-tool.firebaseio.com",
+                  "storageBucket": "bs-tool.appspot.com",
+                  "messagingSenderId": "115370194392"
+              }
+          }
         };
       }
 
@@ -187,6 +245,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // Get root pattern for app-route, for more info about `rootPath` see:
         // https://www.polymer-project.org/2.0/docs/upgrade#urls-in-templates
         this.rootPattern = (new URL(this.rootPath)).pathname;
+      }
+
+      connectedCallback() {
+          super.connectedCallback();
+
+          var that = this;
+
+          // Get data from 
+          this.$.app.app.database().ref('/').on('value', function(data) {
+              that.name = data.val().name;
+          });
+      }
+
+      updateVal() {
+        console.log('my-app.html: updateName(): value: ', this.$.nameInput.value);
+
+        this.$.app.app.database().ref('/').set({
+          name: this.$.nameInput.value
+        });
       }
 
       _routePageChanged(page) {
